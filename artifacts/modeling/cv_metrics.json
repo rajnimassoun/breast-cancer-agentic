@@ -1,0 +1,4 @@
+{
+  "best_model_name": "logreg",
+  "cv_auc_mean": 0.9957688338493291
+}
