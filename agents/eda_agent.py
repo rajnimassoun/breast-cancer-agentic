@@ -76,6 +76,66 @@ def run(cfg):
     with open("artifacts/eda/eda_summary.json","w") as f:
         json.dump(summary, f, indent=2)
 
+def run_eda_report(df, target_col=None, out_dir="artifacts/eda"):
+    """
+    Compatibility wrapper for notebook usage.
+    - df: pandas DataFrame
+    - target_col: optional column name hint
+    - out_dir: directory to write artifacts
+    Uses existing helper functions to detect/encode target and write simple artifacts.
+    """
+    from pathlib import Path
+    from sklearn.model_selection import train_test_split
+
+    out_dir = Path(out_dir)
+    out_dir.mkdir(parents=True, exist_ok=True)
+
+    # Work on a copy to avoid mutating user's dataframe
+    df_local = df.copy()
+
+    # Detect target column (or use provided if valid)
+    try:
+        tc = find_target_col(df_local, target_col)
+    except KeyError:
+        if target_col and target_col in df_local.columns:
+            tc = target_col
+        else:
+            raise
+
+    # Encode target and split features
+    y = encode_target(df_local[tc])
+    X = df_local.drop(columns=[tc])
+
+    # Create simple train/test splits
+    Xtr, Xte, ytr, yte = train_test_split(X, y, test_size=0.2, stratify=y, random_state=42)
+
+    # Write data CSVs under out_dir/data
+    data_dir = out_dir / "data"
+    data_dir.mkdir(parents=True, exist_ok=True)
+    Xtr.to_csv(data_dir / "X_train.csv", index=False)
+    Xte.to_csv(data_dir / "X_test.csv", index=False)
+    ytr.to_csv(data_dir / "y_train.csv", index=False)
+    yte.to_csv(data_dir / "y_test.csv", index=False)
+
+    # Write a small summary JSON
+    summary = {
+        "n_samples": int(len(df_local)),
+        "n_features": int(X.shape[1]),
+        "detected_target_col": tc,
+        "class_balance": {"benign": int((y==0).sum()), "malignant": int((y==1).sum())},
+        "missing": int(df_local.isna().sum().sum()),
+        "recommended_preprocessing": ["StandardScaler"]
+    }
+    with open(out_dir / "eda_summary.json", "w") as f:
+        json.dump(summary, f, indent=2)
+
+    # Additional quick artifacts
+    df_local.head(50).to_csv(out_dir / "sample_rows.csv", index=False)
+    df_local.describe(include="all").T.to_csv(out_dir / "describe.csv")
+    df_local.isna().sum().sort_values(ascending=False).to_csv(out_dir / "missing_counts.csv")
+
+    return {"summary_path": str(out_dir / "eda_summary.json"), "out_dir": str(out_dir)}
+
 if __name__ == "__main__":
     import yaml
     ap = argparse.ArgumentParser(); ap.add_argument("--config", default="config.yaml")
