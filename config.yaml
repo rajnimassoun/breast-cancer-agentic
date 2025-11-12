@@ -1,0 +1,29 @@
+data_path: data/breast_cancer_with_columns.csv
+target_col: diagnosis
+id_col: id
+
+cv:
+  folds: 5
+  random_state: 42
+
+models:
+  logistic_regression:
+    C: [0.1, 1, 10]
+    penalty: ["l2"]
+  svm:
+    C: [0.1, 1, 10]
+    kernel: ["rbf", "linear"]
+    gamma: ["scale"]
+  random_forest:
+    n_estimators: [200, 400]
+    max_depth: [null, 6, 10]
+  xgboost:
+    n_estimators: [300, 600]
+    learning_rate: [0.05, 0.1]
+    max_depth: [3, 5]
+
+explain:
+  n_lime_examples: 10
+  shap_sample: 400
+
+output_dir: artifacts
