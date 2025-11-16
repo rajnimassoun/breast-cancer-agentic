@@ -1,3 +1,42 @@
+"""Minimal example EDA agent for local testing.
+
+This module provides a tiny `run_eda_report` implementation that conforms to
+the notebook's agent contract. It supports being called with either an in-
+memory DataFrame (`df`) or a `dataset_path` (CSV). The agent writes a small
+`summary.txt` into `out_dir` and returns a JSON-serializable dict with
+artifact paths so the adapter can validate end-to-end behavior.
+
+Important notes for integrators:
+- This is for local testing only and performs no sensitive-data handling.
+- Real agents should avoid printing raw PII to stdout and should follow the
+  audit and de-identification guidance in `agents/`.
+"""
+
+from pathlib import Path
+import pandas as pd
+
+
+def run_eda_report(df=None, dataset_path=None, target_col=None, out_dir=None, **_):
+    # Validate inputs: either df or dataset_path must be provided
+    if df is None and dataset_path is None:
+        raise ValueError("Provide df or dataset_path")
+    if df is None:
+        # Load CSV when running in subprocess mode
+        df = pd.read_csv(dataset_path)
+
+    # Ensure output directory exists and is under the project's artifacts
+    out_dir = out_dir or "artifacts/eda/example_agent"
+    Path(out_dir).mkdir(parents=True, exist_ok=True)
+
+    # Write a tiny summary file so the parent notebook can check for artifacts
+    summary_path = Path(out_dir) / "summary.txt"
+    with open(summary_path, "w", encoding="utf-8") as fh:
+        fh.write(f"rows={len(df)}\ncols={len(df.columns)}\n")
+        if target_col and target_col in df.columns:
+            fh.write(f"target_values={df[target_col].value_counts().to_dict()}\n")
+
+    # Return JSON-serializable summary (adapter expects keys like 'out_dir')
+    return {"out_dir": str(out_dir), "summary_path": str(summary_path)}
 import argparse, os, json, pandas as pd
 from sklearn.model_selection import train_test_split
 from pathlib import Path
