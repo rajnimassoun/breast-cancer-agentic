@@ -98,7 +98,7 @@ def open_notebook(notebook_path: str, notebook_name: str):
 
 def run_eda_notebook():
     """Run the EDA notebook."""
-    notebook_path = "notebooks/01_eda.ipynb"
+    notebook_path = "01_eda.ipynb"
     return open_notebook(notebook_path, "01_EDA Notebook")
 
 
