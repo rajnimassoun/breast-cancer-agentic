@@ -1,0 +1,21 @@
+{
+  "patient_id": "P005",
+  "timestamp": "2025-11-29T12:47:07",
+  "predicted_label": "benign",
+  "risk_level": "LOW RISK",
+  "p_malignant": "0.05512646",
+  "threshold": 0.5,
+  "report_text": "\nBreast Imaging Triage Report (Demo Agent)\n-----------------------------------------\nTimestamp:      2025-11-29T12:47:07\nPatient ID:     P005\n\nModel Used:     XGBClassifier\nPredicted Class: BENIGN\nRisk Level:      LOW RISK\nP(malignant):    0.0551\nThreshold used:  0.50\n\nClinical Interpretation (NON-DIAGNOSTIC):\n    - If P(malignant) >= threshold -> \"likely malignant\": recommend urgent radiologist review.\n    - Otherwise -> \"likely benign\": routine follow-up per clinical protocol.\n\nMissing Features (set to 0.0 in this run):\n    None\n\nTop feature contributions (SHAP-based, this patient):\n- worst radius: value=17.910, SHAP=-1.3329 (\u2193 risk (toward benign))\n- worst area: value=988.600, SHAP=-1.2180 (\u2193 risk (toward benign))\n- worst texture: value=31.670, SHAP=-1.1794 (\u2193 risk (toward benign))\n- compactness error: value=0.009, SHAP=-1.0009 (\u2193 risk (toward benign))\n- worst concave points: value=0.086, SHAP=0.9890 (\u2191 risk (toward malignant))\n\nIMPORTANT:\n    This output is for research/educational use only.\n    It is NOT a medical diagnosis and must NOT be used as the sole basis\n    for any clinical decision. A qualified physician must review the case.\n",
+  "email_attempted": false,
+  "email_sent": false,
+  "email_error": null,
+  "missing_features": [],
+  "shap_values": "[-0.00416567  0.06774086 -0.0131926  -0.5607152   0.80092597 -0.5924649\n  0.15242903  0.56017876 -0.05385993 -0.19072197  0.03934079 -0.11358269\n  0.06133343  0.44562012 -0.05492004 -1.000875   -0.00353253  0.2840288\n -0.21656224  0.04855167 -1.3329053  -1.1794131  -0.7112386  -1.2179871\n  0.42610908 -0.01022701 -0.24975272  0.9890222   0.47680232 -0.16562203]",
+  "top_features_text": [
+    "- worst radius: value=17.910, SHAP=-1.3329 (\u2193 risk (toward benign))",
+    "- worst area: value=988.600, SHAP=-1.2180 (\u2193 risk (toward benign))",
+    "- worst texture: value=31.670, SHAP=-1.1794 (\u2193 risk (toward benign))",
+    "- compactness error: value=0.009, SHAP=-1.0009 (\u2193 risk (toward benign))",
+    "- worst concave points: value=0.086, SHAP=0.9890 (\u2191 risk (toward malignant))"
+  ]
+}

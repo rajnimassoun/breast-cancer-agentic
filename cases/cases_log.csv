@@ -1,0 +1,5 @@
+patient_id,timestamp,predicted_label,risk_level,p_malignant,threshold,email_attempted,email_sent,email_error
+P001,2025-11-29T12:46:47,malignant,HIGH RISK,0.98668575,0.5,False,False,
+P005,2025-11-29T12:47:07,benign,LOW RISK,0.05512646,0.5,False,False,
+P003,2025-11-29T12:54:39,benign,LOW RISK,0.00019612431,0.5,False,False,
+P007,2025-11-29T12:54:49,malignant,HIGH RISK,0.99960643,0.5,False,False,

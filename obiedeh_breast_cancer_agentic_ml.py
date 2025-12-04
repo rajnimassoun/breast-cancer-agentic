@@ -239,7 +239,6 @@ def train_xgboost():
     xgb = XGBClassifier(
         objective="binary:logistic",
         eval_metric="logloss",
-        use_label_encoder=False,
         random_state=42,
         tree_method="hist"
     )
@@ -371,7 +370,6 @@ def run_rfecv_and_xgb():
     xgb_sel = XGBClassifier(
         objective="binary:logistic",
         eval_metric="logloss",
-        use_label_encoder=False,
         random_state=42,
         tree_method="hist"
     )
