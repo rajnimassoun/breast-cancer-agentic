@@ -34,20 +34,20 @@ python main.py
 
 This opens an interactive menu where you can:
 
-1. Run 01_EDA Notebook (Exploratory Data Analysis)
-2. Run 02_Agentic_ML Notebook (Interactive ML Pipeline)
+1. Run 00_EDA Notebook (Exploratory Data Analysis)
+2. Run 01_Agentic_ML Notebook (Interactive ML Pipeline)
 
 #### Option 2: Direct Notebook Execution
 
 Open notebooks in Google Colab or Jupyter:
 
-- `01_eda.ipynb` - Complete EDA with feature engineering
-- `02_Agentic_ML.ipynb` - Full ML pipeline with XGBoost and explainability
+- `00_EDA.ipynb` - Complete EDA with feature engineering
+- `01_Agentic_ML.ipynb` - Full ML pipeline with XGBoost and explainability
 
 #### Option 3: Python Script
 
 ```bash
-python 02_Agentic_ML.py
+python 01_Agentic_ML.py
 ```
 
 ## 📊 Results
@@ -81,9 +81,9 @@ Top features by Mutual Information:
 
 ```text
 breast-cancer-agentic/
-├── 01_eda.ipynb              # Exploratory Data Analysis notebook
-├── 02_Agentic_ML.ipynb       # Full ML pipeline notebook
-├── 02_Agentic_ML.py          # Python script version
+├── 00_EDA.ipynb              # Exploratory Data Analysis notebook
+├── 01_Agentic_ML.ipynb       # Full ML pipeline notebook
+├── 01_Agentic_ML.py          # Python script version
 ├── main.py                   # Simple menu interface
 ├── agents/                   # Agent modules
 │   ├── eda_agent.py         # EDA automation
