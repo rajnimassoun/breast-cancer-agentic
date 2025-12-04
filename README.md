@@ -83,7 +83,6 @@ Top features by Mutual Information:
 breast-cancer-agentic/
 ├── 00_EDA.ipynb              # Exploratory Data Analysis notebook
 ├── 01_Agentic_ML.ipynb       # Full ML pipeline notebook
-├── 01_Agentic_ML.py          # Python script version
 ├── main.py                   # Simple menu interface
 ├── agents/                   # Agent modules
 │   ├── eda_agent.py         # EDA automation
@@ -154,6 +153,8 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## 👥 Authors
 
 - **Obinna Edeh** - USD - AAI - 501 - G5
+- **Rajini Massoun** - USD - AAI - 501 - G5
+- **Nicholas Valles** - USD - AAI - 501 -G5
 
 ## 🙏 Acknowledgments
 
