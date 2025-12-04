@@ -1,25 +1,16 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
 """
 Main Entry Point for Breast Cancer Agentic ML Pipeline
-=======================================================
-
-This script provides a simple menu interface to run the ML pipeline notebooks.
-
-Usage:
-------
-    python main.py
 
 Author: Obinna Edeh
 Course: USD - AAI - 501 - G5
 """
 
 import sys
-import subprocess
+import webbrowser
 from pathlib import Path
 
-
-# Terminal colors for better UX
+# Terminal colors
 COLOR_RESET = "\033[0m"
 COLOR_BOLD = "\033[1m"
 COLOR_GREEN = "\033[92m"
@@ -40,75 +31,52 @@ def print_menu():
     """Display the main menu."""
     print_header("Breast Cancer Agentic ML Pipeline", COLOR_CYAN)
     print(f"{COLOR_BOLD}Select an option:{COLOR_RESET}\n")
-    print(f"{COLOR_GREEN}1.{COLOR_RESET} Run 01_EDA Notebook (Exploratory Data Analysis)")
-    print(f"{COLOR_GREEN}2.{COLOR_RESET} Run 02_Agentic_ML Notebook (Interactive ML Pipeline)")
+    print(f"{COLOR_GREEN}1.{COLOR_RESET} Run 00_EDA Notebook "
+          "(Exploratory Data Analysis)")
+    print(f"{COLOR_GREEN}2.{COLOR_RESET} Run 01_Agentic_ML Notebook "
+          "(Interactive ML Pipeline)")
     print(f"{COLOR_RED}0.{COLOR_RESET} Exit")
     print()
 
 
 def open_notebook(notebook_path: str, notebook_name: str):
-    """
-    Open a Jupyter notebook in Google Colab.
-    
-    Args:
-        notebook_path: Path to the notebook file
-        notebook_name: Display name of the notebook
-    """
+    """Open a Jupyter notebook in Google Colab."""
     if not Path(notebook_path).exists():
-        print(f"{COLOR_RED}Error: Notebook not found: {notebook_path}{COLOR_RESET}")
+        print(f"{COLOR_RED}Error: Notebook not found: {notebook_path}"
+              f"{COLOR_RESET}")
         return False
     
     print_header(f"Opening {notebook_name}", COLOR_MAGENTA)
-    print(f"{COLOR_YELLOW}Opening notebook in Google Colab: {notebook_path}{COLOR_RESET}")
     
     try:
-        # Get absolute path
         abs_path = Path(notebook_path).resolve()
+        colab_url = ("https://colab.research.google.com/github/"
+                     "rajnimassoun/breast-cancer-agentic")
         
-        # Check if the file is in a GitHub repo
-        print(f"\n{COLOR_CYAN}To open this notebook in Google Colab:{COLOR_RESET}")
-        print(f"{COLOR_BOLD}Option 1 - Via GitHub:{COLOR_RESET}")
-        print(f"  1. Make sure your notebook is pushed to GitHub")
-        print(f"  2. Go to: https://colab.research.google.com/")
-        print(f"  3. Click 'GitHub' tab")
-        print(f"  4. Enter: rajnimassoun/breast-cancer-agentic")
-        print(f"  5. Select your notebook\n")
+        print(f"\n{COLOR_CYAN}Opening Google Colab...{COLOR_RESET}\n")
+        print(f"{COLOR_BOLD}GitHub:{COLOR_RESET} "
+              "Select your notebook from the repo")
+        print(f"{COLOR_BOLD}Upload:{COLOR_RESET} {abs_path}\n")
         
-        print(f"{COLOR_BOLD}Option 2 - Upload directly:{COLOR_RESET}")
-        print(f"  1. Go to: https://colab.research.google.com/")
-        print(f"  2. Click 'Upload' tab")
-        print(f"  3. Upload: {abs_path}\n")
-        
-        # Try to open Colab in browser
-        import webbrowser
-        
-        # Open Colab GitHub interface with the repo
-        colab_url = "https://colab.research.google.com/github/rajnimassoun/breast-cancer-agentic"
-        print(f"{COLOR_GREEN}Opening Google Colab in browser...{COLOR_RESET}\n")
         webbrowser.open(colab_url)
-        
-        print(f"{COLOR_CYAN}Local file location: {abs_path}{COLOR_RESET}")
-        
         return True
             
     except Exception as e:
-        print(f"\n{COLOR_RED}✗ Error opening {notebook_name}: {e}{COLOR_RESET}\n")
+        print(f"\n{COLOR_RED}Error: {e}{COLOR_RESET}\n")
         return False
 
 
 def run_eda_notebook():
     """Run the EDA notebook."""
-    notebook_path = "01_eda.ipynb"
-    return open_notebook(notebook_path, "01_EDA Notebook")
+    return open_notebook("00_EDA.ipynb", "00_EDA Notebook")
 
 
 def run_agentic_ml_notebook():
     """Run the interactive Agentic ML notebook."""
-    notebook_path = "02_Agentic_ML.ipynb"
-    if not Path(notebook_path).exists():
-        # Try alternative name
-        notebook_path = "OEDEH_Agentic_ML.ipynb"
-    return open_notebook(notebook_path, "02_Agentic_ML Notebook (Interactive)")
+    notebook = "01_Agentic_ML.ipynb"
+    if not Path(notebook).exists():
+        notebook = "O1_Agentic_ML.ipynb"
+    return open_notebook(notebook, "01_Agentic_ML Notebook")
 
 
 def main():
@@ -117,22 +85,24 @@ def main():
         print_menu()
         
         try:
-            choice = input(f"{COLOR_BOLD}Enter your choice (0-2): {COLOR_RESET}").strip()
+            choice = input(
+                f"{COLOR_BOLD}Enter your choice (0-2): {COLOR_RESET}"
+            ).strip()
             
             if choice == "0":
                 print(f"\n{COLOR_CYAN}Exiting... Goodbye!{COLOR_RESET}\n")
                 sys.exit(0)
-            
             elif choice == "1":
                 run_eda_notebook()
-                input(f"\n{COLOR_YELLOW}Press Enter to return to menu...{COLOR_RESET}")
-            
+                input(f"\n{COLOR_YELLOW}Press Enter to return..."
+                      f"{COLOR_RESET}")
             elif choice == "2":
                 run_agentic_ml_notebook()
-                input(f"\n{COLOR_YELLOW}Press Enter to return to menu...{COLOR_RESET}")
-            
+                input(f"\n{COLOR_YELLOW}Press Enter to return..."
+                      f"{COLOR_RESET}")
             else:
-                print(f"\n{COLOR_RED}Invalid choice. Please enter 0, 1, or 2.{COLOR_RESET}\n")
+                print(f"\n{COLOR_RED}Invalid choice. Enter 0, 1, or 2."
+                      f"{COLOR_RESET}\n")
                 
         except KeyboardInterrupt:
             print(f"\n\n{COLOR_CYAN}Interrupted. Exiting...{COLOR_RESET}\n")
