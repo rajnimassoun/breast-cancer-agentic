@@ -2,7 +2,7 @@
 
 A comprehensive machine learning pipeline for breast cancer diagnosis using the Wisconsin Diagnostic Breast Cancer dataset. This project combines exploratory data analysis, multi-model comparison, and advanced explainability techniques to provide accurate predictions with interpretable results.
 
-## 📋 Project Overview
+## Project Overview
 
 This pipeline delivers a complete end-to-end machine learning solution for breast cancer classification:
 
@@ -12,7 +12,7 @@ This pipeline delivers a complete end-to-end machine learning solution for breas
 - **Interactive Patient Triage** - Real-time diagnostic interface with automated risk assessment and email alerts
 - **Production-Ready Pipeline** - Includes data preprocessing, model training, hyperparameter tuning, and deployment
 
-## 🚀 Getting Started
+## Getting Started
 
 ### Prerequisites
 
@@ -59,7 +59,7 @@ or
 jupyter notebook 01_Agentic_ML.ipynb
 ```
 
-## 📊 Performance Metrics
+## Performance Metrics
 
 ### Model Comparison Results
 
@@ -108,7 +108,7 @@ artifacts/
 │   └── lime_examples/           # Per-patient HTML explanations
 ```
 
-## 🏗️ Project Structure
+## Project Structure
 
 ```text
 breast-cancer-agentic/
@@ -129,7 +129,7 @@ breast-cancer-agentic/
 └── requirements-dev.txt           # Development dependencies
 ```
 
-## 🔬 Pipeline Components
+## Pipeline Components
 
 ### 1. Data Preprocessing
 
@@ -185,7 +185,7 @@ Interactive diagnostic interface with enterprise features:
 - **Audit Trail** - JSON and CSV logging for compliance
 - **Session Management** - Continuous operation with exit command
 
-## 📦 Technical Stack
+## Technical Stack
 
 ### Core Dependencies
 
@@ -211,37 +211,37 @@ All dependencies are managed via `requirements.txt`:
 pip install -r requirements.txt
 ```
 
-## 📁 Repository Structure
+## Repository Structure
 
 ```
 breast-cancer-agentic/
-├── 📓 Notebooks
+├── Notebooks
 │   ├── 00_EDA.ipynb                # Exploratory analysis
 │   └── 01_Agentic_ML.ipynb         # ML pipeline
-├── 🐍 Scripts
+├── Scripts
 │   └── main.py                     # Interactive launcher
-├── 📊 Data
+├── Data
 │   ├── raw/                        # Original dataset
 │   ├── processed/                  # Train/test splits
 │   └── breast_cancer_with_columns.csv
-├── 📈 Artifacts
+├── Artifacts
 │   ├── eda/                        # Analysis outputs
 │   └── explain/                    # Explanation files
 │       └── lime_examples/          # Patient-specific HTML
-├── ⚙️ Configuration
+├── Configuration
 │   ├── config.yaml                 # Settings
 │   ├── requirements.txt            # Dependencies
 │   └── requirements-dev.txt        # Dev tools
-└── 📄 Documentation
+└── Documentation
     ├── README.md                   # This file
     └── LICENSE                     # MIT License
 ```
 
-## 📝 License
+## License
 
 MIT License - see [LICENSE](LICENSE) for full text.
 
-## 👥 Team
+## Team
 
 **University of San Diego - Applied Artificial Intelligence (AAI-501-G5)**
 
@@ -249,13 +249,13 @@ MIT License - see [LICENSE](LICENSE) for full text.
 - **Rajini Massoun** - Model Development & Optimization
 - **Nicholas Valles** - Explainability & Evaluation
 
-## 🙏 Acknowledgments
+## Acknowledgments
 
 - **Dataset:** Breast Cancer Wisconsin (Diagnostic) from UCI ML Repository
 - **Institution:** University of San Diego Applied AI Program
 - **Libraries:** scikit-learn, XGBoost, SHAP, LIME development teams
 
-## 📧 Contact
+## Contact
 
 For questions or collaboration:
 - Open an issue in this repository
@@ -263,5 +263,5 @@ For questions or collaboration:
 
 ---
 
-**Built with ❤️ for advancing interpretable AI in healthcare**
+**Built with for advancing interpretable AI in healthcare**
 
