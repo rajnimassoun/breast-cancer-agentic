@@ -1,0 +1,20 @@
+{
+  "patient_id": "P001",
+  "timestamp": "2025-12-05T21:02:10.673512",
+  "predicted_label": "benign",
+  "risk_level": "LOW",
+  "p_malignant": 0.0006511294985981353,
+  "threshold": 0.5,
+  "email_attempted": false,
+  "email_sent": false,
+  "email_error": null,
+  "report_text": "\nPatient ID: P001\nTimestamp: 2025-12-05T21:02:10.673512\nPredicted Label: BENIGN\nRisk Level: LOW\nP(Malignant): 0.0007\nThreshold: 0.5\n\nTop Features (SHAP):\n  - worst texture=21.57 (\u2191 0.8003)\n  - worst radius=12.13 (\u2191 0.7369)\n  - worst area=440.40 (\u2191 0.6757)\n  - mean texture=14.98 (\u2191 0.5343)\n  - worst perimeter=81.41 (\u2191 0.5262)\n\nLIME Explanation saved to: artifacts/explain/lime_examples\\lime_P001.html\n",
+  "top_features_text": [
+    "worst texture=21.57 (\u2191 0.8003)",
+    "worst radius=12.13 (\u2191 0.7369)",
+    "worst area=440.40 (\u2191 0.6757)",
+    "mean texture=14.98 (\u2191 0.5343)",
+    "worst perimeter=81.41 (\u2191 0.5262)"
+  ],
+  "lime_html": "artifacts/explain/lime_examples\\lime_P001.html"
+}

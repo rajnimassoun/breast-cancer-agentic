@@ -1,17 +1,24 @@
 # Breast Cancer Agentic ML Pipeline
 
-An agentic machine learning pipeline for the Breast Cancer Wisconsin (Diagnostic) dataset featuring deep exploratory data analysis, XGBoost modeling with hyperparameter tuning, and SHAP/LIME explainability.
+A comprehensive machine learning pipeline for breast cancer diagnosis using the Wisconsin Diagnostic Breast Cancer dataset. This project combines exploratory data analysis, multi-model comparison, and advanced explainability techniques to provide accurate predictions with interpretable results.
 
 ## 📋 Project Overview
 
-This project implements a complete ML workflow for breast cancer diagnosis using:
+This pipeline delivers a complete end-to-end machine learning solution for breast cancer classification:
 
-- **Exploratory Data Analysis (EDA)** with feature engineering and mutual information ranking
-- **XGBoost Classification** with GridSearchCV hyperparameter optimization
-- **Model Explainability** using SHAP for global interpretability and LIME for local explanations
-- **Interactive Diagnostic Interface** for real-time patient predictions
+- **Exploratory Data Analysis (EDA)** - Comprehensive feature analysis with mutual information ranking and visualization
+- **Multi-Model Architecture** - Compares Logistic Regression, Random Forest, XGBoost, and SVM to automatically select the best performer
+- **Adaptive Explainability** - Uses SHAP (LinearExplainer/TreeExplainer/KernelExplainer) and LIME for model-agnostic interpretability
+- **Interactive Patient Triage** - Real-time diagnostic interface with automated risk assessment and email alerts
+- **Production-Ready Pipeline** - Includes data preprocessing, model training, hyperparameter tuning, and deployment
 
-## 🚀 Quick Start
+## 🚀 Getting Started
+
+### Prerequisites
+
+- Python 3.8-3.12 (Python 3.13+ not compatible with LIME)
+- pip package manager
+- Git
 
 ### Installation
 
@@ -20,144 +27,241 @@ This project implements a complete ML workflow for breast cancer diagnosis using
 git clone https://github.com/rajnimassoun/breast-cancer-agentic.git
 cd breast-cancer-agentic
 
-# Install dependencies
+# Install required packages
 pip install -r requirements.txt
 ```
 
-### Run the Pipeline
+### Usage
 
-#### Option 1: Simple Menu Interface (Recommended)
+**Interactive Menu (Recommended)**
+
+Launch the menu interface to access both notebooks:
 
 ```bash
 python main.py
 ```
 
-This opens an interactive menu where you can:
+Select from:
+- **Option 1:** Exploratory Data Analysis (`00_EDA.ipynb`)
+- **Option 2:** ML Pipeline with Explainability (`01_Agentic_ML.ipynb`)
 
-1. Run 00_EDA Notebook (Exploratory Data Analysis)
-2. Run 01_Agentic_ML Notebook (Interactive ML Pipeline)
+**Direct Notebook Execution**
 
-#### Option 2: Direct Notebook Execution
-
-Open notebooks in Google Colab or Jupyter:
-
-- `00_EDA.ipynb` - Complete EDA with feature engineering
-- `01_Agentic_ML.ipynb` - Full ML pipeline with XGBoost and explainability
-
-#### Option 3: Python Script
+Run notebooks in Jupyter or Google Colab:
 
 ```bash
-python 01_Agentic_ML.py
+jupyter notebook 00_EDA.ipynb
 ```
 
-## 📊 Results
+or
 
-### Model Performance
+```bash
+jupyter notebook 01_Agentic_ML.ipynb
+```
 
-- **Best Model:** XGBoost Classifier
-- **Test ROC-AUC:** ~0.99
-- **Cross-Validation:** Stratified K-Fold (k=3)
-- **Hyperparameter Tuning:** GridSearchCV over 243 parameter combinations
+## 📊 Performance Metrics
 
-### Key Features Identified
+### Model Comparison Results
 
-Top features by Mutual Information:
+| Model | Test Accuracy | Test AUC | F1 Score | Training Time |
+|-------|--------------|----------|----------|---------------|
+| Logistic Regression | 98.2% | 0.9954 | 0.986 | Fast |
+| Random Forest | 95.6% | 0.9939 | 0.966 | Moderate |
+| XGBoost | 94.7% | 0.9934 | 0.959 | Moderate |
+| SVM | 98.2% | 0.9937 | 0.986 | Slow |
 
-1. `concave points_worst`
-2. `concavity_worst`
-3. `perimeter_worst`
-4. `radius_worst`
-5. `area_worst`
+**Best Model:** Logistic Regression (ROC-AUC: 0.9954)
 
-### Artifacts Generated
+### Configuration
 
-- `artifacts/eda/` - EDA reports, mutual information rankings, train/test splits
-- `artifacts/engineering/` - Feature transformers and scalers
-- `artifacts/modeling/` - Model metrics and performance reports
-- `artifacts/explain/` - SHAP plots and LIME explanations
-- `cases/` - Patient diagnostic session logs
+- **Cross-Validation:** 5-Fold Stratified K-Fold
+- **Optimization:** GridSearchCV with automated hyperparameter tuning
+- **Explainability Engine:** Model-adaptive SHAP + LIME
+  - LinearExplainer → Logistic Regression
+  - TreeExplainer → Random Forest, XGBoost
+  - KernelExplainer → SVM, other models
+
+### Feature Importance
+
+Top 5 features identified by Mutual Information Score:
+
+| Rank | Feature | MI Score | Description |
+|------|---------|----------|-------------|
+| 1 | `concave points_worst` | 0.72 | Severity of concave portions |
+| 2 | `concavity_worst` | 0.69 | Severity of concave contours |
+| 3 | `perimeter_worst` | 0.68 | Largest cell perimeter |
+| 4 | `radius_worst` | 0.67 | Largest cell radius |
+| 5 | `area_worst` | 0.66 | Largest cell area |
+
+### Output Artifacts
+
+The pipeline generates organized artifacts for analysis and reproducibility:
+
+```
+artifacts/
+├── eda/
+│   ├── describe.csv              # Statistical summaries
+│   ├── mutual_info_ranking.csv   # Feature importance rankings
+│   └── data/                     # Train/test splits
+├── explain/
+│   ├── triage_log.csv           # All patient predictions
+│   └── lime_examples/           # Per-patient HTML explanations
+```
 
 ## 🏗️ Project Structure
 
 ```text
 breast-cancer-agentic/
-├── 00_EDA.ipynb              # Exploratory Data Analysis notebook
-├── 01_Agentic_ML.ipynb       # Full ML pipeline notebook
-├── main.py                   # Simple menu interface
-├── agents/                   # Agent modules
-│   ├── eda_agent.py         # EDA automation
-│   ├── fe_agent.py          # Feature engineering
-│   ├── modeling_agent.py    # Model training
-│   ├── explain_agent.py     # SHAP/LIME explainability
-│   ├── audit_logger.py      # Audit logging
-│   └── privacy.py           # De-identification utilities
+├── 00_EDA.ipynb                    # Exploratory Data Analysis notebook
+├── 01_Agentic_ML.ipynb             # Full ML pipeline with SHAP/LIME
+├── main.py                         # Interactive menu launcher
+├── config.yaml                     # Configuration settings
 ├── data/
-│   ├── raw/                 # Original dataset
-│   ├── processed/           # Train/test splits
-│   └── engineered/          # Feature-engineered data
-├── artifacts/               # Generated reports and metrics
-├── cases/                   # Patient diagnostic logs
-└── requirements.txt         # Python dependencies
+│   ├── raw/                       # Original breast cancer dataset
+│   ├── processed/                 # Train/test splits
+│   └── breast_cancer_with_columns.csv
+├── artifacts/
+│   ├── eda/                       # EDA reports and data splits
+│   └── explain/                   # SHAP/LIME explanations
+│       └── lime_examples/         # Per-patient LIME HTML files
+├── reports/figures/               # Visualization outputs
+├── requirements.txt               # Python dependencies
+└── requirements-dev.txt           # Development dependencies
 ```
 
-## 🔬 Features
+## 🔬 Pipeline Components
 
-### Data Processing
+### 1. Data Preprocessing
 
-- Automated missing value imputation
-- Percentile-based outlier capping (1st-99th percentiles)
-- StandardScaler normalization
-- Ratio feature engineering (worst/mean ratios)
-- Removal of standard error (_se) columns
+Robust data preparation ensures model reliability:
 
-### Modeling
+- **Missing Value Handling** - Automated imputation strategies
+- **Outlier Management** - Percentile-based capping (1st-99th)
+- **Feature Scaling** - StandardScaler for normalization
+- **Feature Engineering** - Ratio features (worst/mean)
+- **Dimensionality Reduction** - Remove high-correlation features (_se columns)
 
-- XGBoost with tree_method='hist' for efficiency
-- GridSearchCV hyperparameter optimization
-- Stratified K-Fold cross-validation
-- Multiple evaluation metrics (ROC-AUC, F1, Precision, Recall)
+### 2. Multi-Model Training
 
-### Explainability
+Compares four distinct algorithms with full hyperparameter optimization:
 
-- **SHAP (SHapley Additive exPlanations):** Global feature importance
-- **LIME (Local Interpretable Model-agnostic Explanations):** Individual prediction explanations
-- Confusion matrix visualization
-- Feature correlation heatmaps
+| Algorithm | Configuration | Use Case |
+|-----------|--------------|----------|
+| **Logistic Regression** | L2 regularization, max_iter=5000 | Fast, interpretable baseline |
+| **Random Forest** | 100-200 trees, max_depth tuning | Ensemble robustness |
+| **XGBoost** | Gradient boosting, learning rate optimization | High-performance prediction |
+| **SVM** | RBF & linear kernels, C tuning | Non-linear decision boundaries |
 
-### Safety & Privacy
+**Training Process:**
+- GridSearchCV exhaustive parameter search
+- 5-fold stratified cross-validation
+- ROC-AUC optimization metric
+- Automatic best model deployment
 
-- Audit logging for all operations
-- De-identification utilities for sensitive data
-- Subprocess isolation for agent execution
-- Configurable timeout protection
+### 3. Interpretability Layer
 
-## 📦 Dependencies
+Dual-explainer architecture provides both global and local insights:
 
-- Python 3.8+
-- XGBoost
-- scikit-learn
-- pandas
-- numpy
-- matplotlib
-- seaborn
-- SHAP
-- LIME
-- joblib
+**SHAP (Global & Local)**
+- Adaptive explainer selection based on model type
+- Feature contribution analysis for every prediction
+- Top-5 most influential features per case
+- Direction and magnitude of feature impact
 
-See `requirements.txt` for complete list.
+**LIME (Local)**
+- Instance-level explanations
+- HTML visualization export
+- Human-readable feature importance
+- Saved as `lime_{patient_id}.html`
+
+### 4. Patient Triage System
+
+Interactive diagnostic interface with enterprise features:
+
+- **Input Interface** - Guided feature entry with defaults
+- **Risk Classification** - LOW/MEDIUM/HIGH based on probability
+- **Dual Explanations** - SHAP + LIME for each prediction
+- **Alert System** - Automated email for malignant cases
+- **Audit Trail** - JSON and CSV logging for compliance
+- **Session Management** - Continuous operation with exit command
+
+## 📦 Technical Stack
+
+### Core Dependencies
+
+| Package | Version | Purpose |
+|---------|---------|----------|
+| Python | 3.8-3.12 | Runtime (3.13+ incompatible with LIME) |
+| scikit-learn | Latest | ML models, pipelines, preprocessing |
+| xgboost | Latest | Gradient boosting implementation |
+| pandas | Latest | Data manipulation and analysis |
+| numpy | Latest | Numerical computations |
+| shap | ≥0.40 | Model interpretation framework |
+| lime | 0.2.x | Local explanation generation |
+| matplotlib | Latest | Visualization engine |
+| seaborn | Latest | Statistical plotting |
+| scipy | Latest | Scientific algorithms |
+| jupyter | Latest | Notebook environment |
+
+### Installation
+
+All dependencies are managed via `requirements.txt`:
+
+```bash
+pip install -r requirements.txt
+```
+
+## 📁 Repository Structure
+
+```
+breast-cancer-agentic/
+├── 📓 Notebooks
+│   ├── 00_EDA.ipynb                # Exploratory analysis
+│   └── 01_Agentic_ML.ipynb         # ML pipeline
+├── 🐍 Scripts
+│   └── main.py                     # Interactive launcher
+├── 📊 Data
+│   ├── raw/                        # Original dataset
+│   ├── processed/                  # Train/test splits
+│   └── breast_cancer_with_columns.csv
+├── 📈 Artifacts
+│   ├── eda/                        # Analysis outputs
+│   └── explain/                    # Explanation files
+│       └── lime_examples/          # Patient-specific HTML
+├── ⚙️ Configuration
+│   ├── config.yaml                 # Settings
+│   ├── requirements.txt            # Dependencies
+│   └── requirements-dev.txt        # Dev tools
+└── 📄 Documentation
+    ├── README.md                   # This file
+    └── LICENSE                     # MIT License
+```
 
 ## 📝 License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+MIT License - see [LICENSE](LICENSE) for full text.
 
-## 👥 Authors
+## 👥 Team
 
-- **Obinna Edeh** - USD - AAI - 501 - G5
-- **Rajini Massoun** - USD - AAI - 501 - G5
-- **Nicholas Valles** - USD - AAI - 501 -G5
+**University of San Diego - Applied Artificial Intelligence (AAI-501-G5)**
+
+- **Obinna Edeh** - Pipeline Architecture & Implementation
+- **Rajini Massoun** - Model Development & Optimization
+- **Nicholas Valles** - Explainability & Evaluation
 
 ## 🙏 Acknowledgments
 
-- Breast Cancer Wisconsin (Diagnostic) dataset from UCI Machine Learning Repository
-- USD Applied Artificial Intelligence program
+- **Dataset:** Breast Cancer Wisconsin (Diagnostic) from UCI ML Repository
+- **Institution:** University of San Diego Applied AI Program
+- **Libraries:** scikit-learn, XGBoost, SHAP, LIME development teams
+
+## 📧 Contact
+
+For questions or collaboration:
+- Open an issue in this repository
+- Course: AAI-501-G5, University of San Diego
+
+---
+
+**Built with ❤️ for advancing interpretable AI in healthcare**
 
